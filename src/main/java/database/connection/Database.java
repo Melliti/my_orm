@@ -6,6 +6,7 @@ public class Database {
     private String DB_USER = "root";
     private String DB_PASSWORD = "Cucklife1";
     private Connection con = null;
+    Statement stmt = null;
 
     private static Database db = null;
 
@@ -16,12 +17,26 @@ public class Database {
     }
 
     private void tableList() {
-        Statement stmt = null;
         try {
-            stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SHOW TABLES");
             while (rs.next()) {
                 System.out.println(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void execute(String qu) {
+        System.out.println(qu);
+        try {
+
+            stmt = con.createStatement();
+
+            ResultSet rs = stmt.executeQuery(qu);
+            while (rs.next()) {
+                System.out.println(rs.getInt("id"));
+                System.out.println(rs.getString("name"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,8 +47,20 @@ public class Database {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            stmt = con.createStatement();
             this.tableList();
         } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertdata(String qu) {
+        System.out.println(qu);
+        try {
+            stmt = con.createStatement();
+            boolean rs = stmt.execute(qu);
+            System.out.println(rs);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
