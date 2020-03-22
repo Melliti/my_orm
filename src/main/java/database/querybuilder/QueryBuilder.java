@@ -3,10 +3,10 @@ package database.querybuilder;
 import java.lang.reflect.Field;
 
 public class QueryBuilder {
-    public static String insertQueryBuilder(Field[] fields, Object[] values) {
+    public static String insertQueryBuilder(String table, Field[] fields, Object[] values) {
         int it = 0;
         String query = "INSERT INTO ";
-        query += "PET (";
+        query += table + " (";
         for (Field field: fields) {
             query += field.getName();
             it++;
@@ -24,5 +24,9 @@ public class QueryBuilder {
         query += ")";
         System.out.println(query);
         return null;
+    }
+
+    public static String findAllQueryBuilder(String table) {
+        
     }
 }

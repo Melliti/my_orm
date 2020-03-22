@@ -53,15 +53,4 @@ public class Database {
             e.printStackTrace();
         }
     }
-
-    public void insertdata(String qu) {
-        System.out.println(qu);
-        try {
-            stmt = con.createStatement();
-            boolean rs = stmt.execute(qu);
-            System.out.println(rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

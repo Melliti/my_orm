@@ -17,4 +17,6 @@ public class Pets extends Entity {
         super.insert(fields, new Object[]{this.name, this.id_owner});
 //        super.find();
     }
+
+    public static void tmp() {}
 }

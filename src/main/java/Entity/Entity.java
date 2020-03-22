@@ -1,10 +1,13 @@
 package Entity;
 
+import database.annotation.Table;
 import database.connection.Database;
 import database.querybuilder.QueryBuilder;
 import orm.mapper.MapperInterface;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class Entity implements MapperInterface {
@@ -26,9 +29,11 @@ public class Entity implements MapperInterface {
 
     @Override
     public void insert(Field[] field, Object[] values) {
-        String query = QueryBuilder.insertQueryBuilder(field, values);
-//        Database db = Database.getInstance();
-//        db.insertdata("INSERT INTO PET (name, id_owner) values (\"Paasu\", 3)");
+        Table table = this.getClass().getDeclaredAnnotation(Table.class);
+
+        String query = QueryBuilder.insertQueryBuilder(table.name(), field, values);
+        Database db = Database.getInstance();
+        db.execute(query);
     }
 
     @Override
