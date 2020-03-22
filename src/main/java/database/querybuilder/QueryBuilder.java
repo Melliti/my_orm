@@ -27,6 +27,6 @@ public class QueryBuilder {
     }
 
     public static String findAllQueryBuilder(String table) {
-        
+        return "SELECT * FROM " + table;
     }
 }
