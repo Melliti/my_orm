@@ -28,7 +28,7 @@ public class Database {
     }
 
     public void execute(String qu) {
-        System.out.println(qu);
+        System.out.println("EXECUTE: " + qu);
         try {
 
             stmt = con.createStatement();
@@ -38,6 +38,18 @@ public class Database {
                 System.out.println(rs.getInt("id"));
                 System.out.println(rs.getString("name"));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insert(String qu) {
+        System.out.println("INSERT: " + qu);
+        try {
+
+            stmt = con.createStatement();
+
+            Boolean rs = stmt.execute(qu);
         } catch (SQLException e) {
             e.printStackTrace();
         }
