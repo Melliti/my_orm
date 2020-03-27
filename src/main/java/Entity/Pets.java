@@ -1,10 +1,12 @@
 package Entity;
 
+import database.annotation.Relation;
 import database.annotation.Table;
 
 import java.lang.reflect.Field;
 
 @Table(name = "pet")
+@Relation(hasMany = {"Owners"})
 public class Pets extends Entity {
     public String name;
     public int id_owner;

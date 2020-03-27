@@ -33,6 +33,7 @@ public class Entity implements MapperInterface {
     public Entity insert(Field[] field, Object[] values) {
         Table table = this.getClass().getDeclaredAnnotation(Table.class);
 
+
         this.query = QueryBuilder.insertQueryBuilder(table.name(), field, values);
 //        QueryBuilder.insertQueryBuilder(this, table.name(), field, values);
 //        System.out.println("TEST");
