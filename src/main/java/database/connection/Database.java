@@ -46,9 +46,7 @@ public class Database {
     public void insert(String qu) {
         System.out.println("INSERT: " + qu);
         try {
-
             stmt = con.createStatement();
-
             Boolean rs = stmt.execute(qu);
         } catch (SQLException e) {
             e.printStackTrace();
