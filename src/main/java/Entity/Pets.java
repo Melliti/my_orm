@@ -15,6 +15,7 @@ public class Pets extends Entity {
         this.id_owner = id_owner;
         Field[] fields = this.getClass().getDeclaredFields();
         super.insert(fields, new Object[]{this.name, this.id_owner});
+//        super.insert(fields, new Object[]{this.name, this.id_owner}).where("id", "<", "2");
 //        super.find();
     }
 

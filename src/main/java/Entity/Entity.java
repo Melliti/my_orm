@@ -14,6 +14,7 @@ public class Entity implements MapperInterface {
     private int id;
     private String createdAt;
     private String modifiedAt;
+    public String query;
 
     public void findByID(int id) {
 
@@ -28,12 +29,17 @@ public class Entity implements MapperInterface {
     }
 
     @Override
-    public void insert(Field[] field, Object[] values) {
+//    public void insert(Field[] field, Object[] values) {
+    public Entity insert(Field[] field, Object[] values) {
         Table table = this.getClass().getDeclaredAnnotation(Table.class);
 
-        String query = QueryBuilder.insertQueryBuilder(table.name(), field, values);
+        this.query = QueryBuilder.insertQueryBuilder(table.name(), field, values);
+//        QueryBuilder.insertQueryBuilder(this, table.name(), field, values);
+//        System.out.println("TEST");
+//        System.out.println(query);
         Database db = Database.getInstance();
-        db.execute(query);
+        db.insert(this.query);
+        return this;
     }
 
     @Override
@@ -53,8 +59,8 @@ public class Entity implements MapperInterface {
     }
 
     @Override
-    public void where() {
-
+    public void where(String field, String conditon, String value) {
+        this.query = QueryBuilder.where(this.query, field, conditon, value);
     }
 
     @Override
