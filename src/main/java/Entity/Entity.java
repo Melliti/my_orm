@@ -1,14 +1,13 @@
 package Entity;
 
+import database.annotation.Relation;
 import database.annotation.Table;
 import database.connection.Database;
 import database.querybuilder.QueryBuilder;
 import orm.mapper.MapperInterface;
 
-import java.lang.annotation.Annotation;
+import javax.xml.crypto.Data;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 
 public class Entity implements MapperInterface {
     private int id;
@@ -30,23 +29,23 @@ public class Entity implements MapperInterface {
 
     @Override
 //    public void insert(Field[] field, Object[] values) {
-    public Entity insert(Field[] field, Object[] values) {
+    public void insert(Field[] field, Object[] values) {
         Table table = this.getClass().getDeclaredAnnotation(Table.class);
-
 
         this.query = QueryBuilder.insertQueryBuilder(table.name(), field, values);
 //        QueryBuilder.insertQueryBuilder(this, table.name(), field, values);
-//        System.out.println("TEST");
-//        System.out.println(query);
         Database db = Database.getInstance();
         db.insert(this.query);
-        return this;
+//        return this;
     }
 
     @Override
-    public void find() {
+    public Entity find() {
+        Table table = this.getClass().getDeclaredAnnotation(Table.class);
+        QueryBuilder.findAllQueryBuilder(this, table.name());
         Database db = Database.getInstance();
-        db.execute("SELECT * FROM pet");
+//        db.execute(this.query);
+        return this;
     }
 
     @Override
@@ -60,12 +59,20 @@ public class Entity implements MapperInterface {
     }
 
     @Override
-    public void where(String field, String conditon, String value) {
-        this.query = QueryBuilder.where(this.query, field, conditon, value);
+    public void where(String field, String condition, String value) {
+        QueryBuilder.where(this, field, condition, value);
+        Database db = Database.getInstance();
+        db.execute(this.query);
+
     }
 
     @Override
     public void findByID() {
 
+    }
+
+    protected void test() {
+        Relation relation = this.getClass().getDeclaredAnnotation(Relation.class);
+        System.out.println(relation.hasMany()[0]);
     }
 }

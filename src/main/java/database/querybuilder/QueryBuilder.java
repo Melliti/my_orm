@@ -53,14 +53,18 @@ public class QueryBuilder {
         return query;
     }
 
+    public static Entity findAllQueryBuilder(Entity entity, String table) {
+        entity.query = "SELECT * FROM " + table;
+        return entity;
+    }
+
     public static String findAllQueryBuilder(String table) {
         return "SELECT * FROM " + table;
     }
 
-    public static String where(String query, String field, String condition, String value) {
-        query += "WHERE " + field + " ";
-        query += condition + " " + value;
-        System.out.println(query);
-        return query;
+    public static Entity where(Entity entity, String field, String condition, String value) {
+        entity.query += " WHERE " + field + " ";
+        entity.query += condition + " " + value;
+        return entity;
     }
 }

@@ -19,6 +19,7 @@ public class Database {
     private void tableList() {
         try {
             ResultSet rs = stmt.executeQuery("SHOW TABLES");
+            System.out.println("TABLE LIST");
             while (rs.next()) {
                 System.out.println(rs.getString(1));
             }
@@ -28,15 +29,12 @@ public class Database {
     }
 
     public void execute(String qu) {
-        System.out.println("EXECUTE: " + qu);
         try {
-
             stmt = con.createStatement();
-
             ResultSet rs = stmt.executeQuery(qu);
             while (rs.next()) {
-                System.out.println(rs.getInt("id"));
-                System.out.println(rs.getString("name"));
+                System.out.println(rs.getString("name") + " with ID " + rs.getInt("id"));
+                System.out.println();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,7 +45,8 @@ public class Database {
         System.out.println("INSERT: " + qu);
         try {
             stmt = con.createStatement();
-            Boolean rs = stmt.execute(qu);
+            int rs = stmt.executeUpdate(qu);
+            System.out.println(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,7 +57,7 @@ public class Database {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             stmt = con.createStatement();
-            this.tableList();
+//            this.tableList();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
