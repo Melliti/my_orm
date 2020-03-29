@@ -9,7 +9,7 @@ public class Main {
         Database db = Database.getInstance();
         db.connection();
         Pets pet = new Pets("Tika", 2);
-        Owners owner = new Owners("Harold");
+//        Owners owner = new Owners("Harold");
 //        Field[] fields = pet.getClass().getDeclaredFields();
 //        for (Field field: fields) {
 //            System.out.println(field.getName());

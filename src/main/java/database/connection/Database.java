@@ -16,16 +16,14 @@ public class Database {
         return db;
     }
 
-    private void tableList() {
+    public ResultSet tableList() {
+        ResultSet rs = null;
         try {
-            ResultSet rs = stmt.executeQuery("SHOW TABLES");
-            System.out.println("TABLE LIST");
-            while (rs.next()) {
-                System.out.println(rs.getString(1));
-            }
+            rs = stmt.executeQuery("SHOW TABLES");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return rs;
     }
 
     public void execute(String qu) {

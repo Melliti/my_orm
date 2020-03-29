@@ -6,7 +6,7 @@ import database.annotation.Table;
 import java.lang.reflect.Field;
 
 @Table(name = "pet")
-@Relation(hasMany = {"Owners"})
+@Relation(belongsToMany = {"owners"})
 public class Pets extends Entity {
     public String name;
     public int id_owner;
@@ -17,7 +17,7 @@ public class Pets extends Entity {
         this.id_owner = id_owner;
         Field[] fields = this.getClass().getDeclaredFields();
 //        super.insert(fields, new Object[]{this.name, this.id_owner});
-        super.find().where("id_owner", "=", "2");
+//        super.find().where("id_owner", "=", "2");
         super.test();
     }
 

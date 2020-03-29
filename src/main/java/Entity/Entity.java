@@ -3,6 +3,7 @@ package Entity;
 import database.annotation.Relation;
 import database.annotation.Table;
 import database.connection.Database;
+import database.core.Relations;
 import database.querybuilder.QueryBuilder;
 import orm.mapper.MapperInterface;
 
@@ -73,6 +74,18 @@ public class Entity implements MapperInterface {
 
     protected void test() {
         Relation relation = this.getClass().getDeclaredAnnotation(Relation.class);
-        System.out.println(relation.hasMany()[0]);
+//        Relations rs = new Relations();
+//        rs
+        if (relation.hasOne().length > 0)
+            Relations.getTable(Database.getInstance(), relation.hasOne());
+        if (relation.hasMany().length > 0)
+            Relations.getTable(Database.getInstance(), relation.hasMany());
+        if (relation.hasAndBelongsToMany().length > 0)
+            Relations.getTable(Database.getInstance(), relation.hasAndBelongsToMany());
+        if (relation.belongsTo().length > 0)
+            Relations.getTable(Database.getInstance(), relation.belongsTo());
+        if (relation.belongsToMany().length > 0)
+            Relations.getTable(Database.getInstance(), relation.belongsToMany());
+        System.out.println(relation.belongsToMany()[0]);
     }
 }
