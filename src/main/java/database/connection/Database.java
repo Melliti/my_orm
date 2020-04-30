@@ -27,20 +27,22 @@ public class Database {
         }
     }
 
-    public void execute(String qu) {
+    public ResultSet execute(String qu) {
         System.out.println("EXECUTE: " + qu);
+        ResultSet rs = null;
         try {
 
             stmt = con.createStatement();
 
-            ResultSet rs = stmt.executeQuery(qu);
-            while (rs.next()) {
-                System.out.println(rs.getInt("id"));
-                System.out.println(rs.getString("name"));
-            }
+            rs = stmt.executeQuery(qu);
+//            while (rs.next()) {
+//                System.out.println(rs.getInt("id"));
+//                System.out.println(rs.getString("name"));
+//            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return rs;
     }
 
     public void insert(String qu) {
@@ -58,7 +60,9 @@ public class Database {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             stmt = con.createStatement();
+
             this.tableList();
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

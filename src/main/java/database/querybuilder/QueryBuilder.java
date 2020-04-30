@@ -58,9 +58,27 @@ public class QueryBuilder {
     }
 
     public static String where(String query, String field, String condition, String value) {
-        query += "WHERE " + field + " ";
-        query += condition + " " + value;
-        System.out.println(query);
+        query += " WHERE " + field + " ";
+        query += condition + " \'" + value + "\'";
         return query;
     }
+
+    public static String where(String query, String field, String condition, int value) {
+        query += " WHERE " + field + " ";
+        query += condition + " " + value;
+        return query;
+    }
+
+    public static String and(String query, String field, String condition, String value) {
+        query += " AND " + field + " ";
+        query += condition + " \'" + value + "\'";
+        return query;
+    }
+
+    public static String and(String query, String field, String condition, int value) {
+        query += " AND " + field + " ";
+        query += condition + " " + value;
+        return query;
+    }
+
 }

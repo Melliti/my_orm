@@ -7,10 +7,11 @@ public class Main {
     public static void main(String[] args) {
         Database db = Database.getInstance();
         db.connection();
-        Pets pet = new Pets("Chanel", 3);
-        Field[] fields = pet.getClass().getDeclaredFields();
-        for (Field field: fields) {
-            System.out.println(field.getName());
-        }
+//        Pets.findByID(2);
+        Pets pet = new Pets("Niro", 10);
+//        Field[] fields = pet.getClass().getDeclaredFields();
+//        for (Field field: fields) {
+//            System.out.println(field.getName());
+//        }
     }
 }
