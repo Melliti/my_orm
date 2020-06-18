@@ -4,7 +4,7 @@ import java.sql.*;
 public class Database {
     private String DB_URL = "jdbc:mysql://localhost/orm";
     private String DB_USER = "root";
-    private String DB_PASSWORD = "Cucklife1";
+    private String DB_PASSWORD = "";
     private Connection con = null;
     Statement stmt = null;
 
@@ -20,7 +20,7 @@ public class Database {
         try {
             ResultSet rs = stmt.executeQuery("SHOW TABLES");
             while (rs.next()) {
-                System.out.println(rs.getString(1));
+                System.out.println("[tableList()] " + rs.getString(1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -28,7 +28,7 @@ public class Database {
     }
 
     public ResultSet execute(String qu) {
-        System.out.println("EXECUTE: " + qu);
+//        System.out.println("EXECUTE: " + qu);
         ResultSet rs = null;
         try {
 
@@ -61,7 +61,7 @@ public class Database {
             con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             stmt = con.createStatement();
 
-            this.tableList();
+//            this.tableList();
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();

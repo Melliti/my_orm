@@ -4,13 +4,18 @@ import database.annotation.Relation;
 import database.annotation.Table;
 
 import java.lang.reflect.Field;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Table(name = "pet")
-@Relation(hasMany = {"Owners"})
+@Table(name = "Pet")
+@Relation(hasOne = {"Owners"})
 public class Pets extends Entity {
     public String name;
     public int id_owner;
+
+    public int getId_owner() {
+        return this.id_owner;
+    }
 
     public Pets(String name, int id_owner) {
         this.name = name;
@@ -25,9 +30,14 @@ public class Pets extends Entity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+//        super.hasOne("Owners");
+//        this.owners();
     }
 
-    public void owner() {
-        this.hasMany();
+    public Owners owners() {
+        Owners owner = null;
+        if (this.hasOne(this.getId_owner(), "Owners"))
+            owner = Owners.find(this.getId_owner());
+        return owner;
     }
 }

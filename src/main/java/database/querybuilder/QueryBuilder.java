@@ -24,7 +24,7 @@ public class QueryBuilder {
                 entity.query += ", ";
         }
         entity.query += ")";
-        System.out.println(entity.query);
+        System.out.println("[insertQueryBuilder(Entity, String, Field[], Object[])] " + entity.query);
         return entity;
     }
 
