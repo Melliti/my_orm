@@ -15,12 +15,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Entity implements MapperInterface {
     private int id;
     private String createdAt;
     private String modifiedAt;
     public String query;
+
+    protected Entity () throws SQLException {
+//        Database db = Database.getInstance();
+//        ResultSet rs = db.tableList();
+//        Table table = this.getClass().getDeclaredAnnotation(Table.class);
+//        List<String> tables = new ArrayList<String>();
+//
+//        while (rs.next()) {
+//            System.out.println(rs.getString(1));
+//            tables.add(rs.getString(1));
+//        }
+    }
 
     public static ResultSet findByID(String field, int id) {
         String query = QueryBuilder.findAllQueryBuilder(field);
@@ -44,7 +57,7 @@ public class Entity implements MapperInterface {
 
     protected Boolean executeInsert() throws SQLException {
         Database db = Database.getInstance();
-//        return db.insert(this.query);
+
         db.insert(this.query);
         return true;
     }

@@ -1,12 +1,13 @@
 package database.connection;
+
 import java.sql.*;
 
 public class Database {
     private String DB_URL = "jdbc:mysql://localhost/orm";
     private String DB_USER = "root";
     private String DB_PASSWORD = "";
-    private Connection con = null;
-    Statement stmt = null;
+    public Connection con = null;
+    public Statement stmt = null;
 
     private static Database db = null;
 
@@ -16,19 +17,21 @@ public class Database {
         return db;
     }
 
-    private void tableList() {
+    public ResultSet tableList() {
+        ResultSet rs = null;
         try {
-            ResultSet rs = stmt.executeQuery("SHOW TABLES");
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SHOW TABLES");
             while (rs.next()) {
-                System.out.println("[tableList()] " + rs.getString(1));
+                System.out.println(rs.getString(1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return rs;
     }
 
     public ResultSet execute(String qu) {
-//        System.out.println("EXECUTE: " + qu);
         ResultSet rs = null;
         try {
 
@@ -46,12 +49,17 @@ public class Database {
     }
 
     public void insert(String qu) {
-        System.out.println("INSERT: " + qu);
+//        System.out.println("INSERT: " + qu);
         try {
             stmt = con.createStatement();
             Boolean rs = stmt.execute(qu);
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("[ERRCODE]:" + e.getErrorCode());
+            if (e.getErrorCode() == 1062) {
+                System.err.println("[One-To-One]" + e.getMessage());
+            } else {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -60,7 +68,6 @@ public class Database {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             stmt = con.createStatement();
-
 //            this.tableList();
 
         } catch (SQLException | ClassNotFoundException e) {

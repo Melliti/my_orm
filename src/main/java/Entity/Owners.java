@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Table(name = "owners")
-@Relation(hasMany = {"Owners", "test"})
+@Relation(belongsTo = {"Pets"})
 public class Owners extends Entity {
     public int getId() {
         return id;
@@ -42,4 +42,11 @@ public class Owners extends Entity {
         }
         return null;
     }
+
+//    public Pets pets() {
+//        Pets pets = null;
+//        if (this.hasOne(this.getId_owner(), "Owners"))
+//            owner = Owners.find(this.getId_owner());
+//        return owner;
+//    }
 }

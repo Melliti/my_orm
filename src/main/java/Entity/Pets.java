@@ -17,21 +17,18 @@ public class Pets extends Entity {
         return this.id_owner;
     }
 
-    public Pets(String name, int id_owner) {
+    public Pets(String name, int id_owner) throws SQLException {
         this.name = name;
         this.id_owner = id_owner;
         Field[] fields = this.getClass().getDeclaredFields();
         super.find().where("name", "=", this.name).and("id_owner", "=", this.id_owner);
         try {
             if (!super.executeQuery()) {
-                System.out.println("INSERTION");
                 super.insert(fields, new Object[]{this.name, this.id_owner}).executeInsert();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        super.hasOne("Owners");
-//        this.owners();
     }
 
     public Owners owners() {
